@@ -13,7 +13,6 @@ from sklearn.preprocessing import OneHotEncoder,StandardScaler
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from src.exception import CustomException
 from src.logger import logging
-
 from src.utils import OutlierHandler, save_object
 
 # @dataclass decorator , because inside any traditional class, to define the class variables you basically use _init_ ,  
