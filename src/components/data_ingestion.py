@@ -5,6 +5,8 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from src.exception import CustomException
 from src.logger import logging
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -25,80 +27,45 @@ class DataIngestion:
     def __init__(self): 
         self.ingestion_config=DataIngestionConfig()
 
+class DataIngestion:
+    def __init__(self):
+        self.ingestion_config=DataIngestionConfig()
+
     def initiate_data_ingestion(self):
         logging.info("Entered the data ingestion method or component")
         try:
-            # Load dataset
-            logging.info("Reading the dataset as a DataFrame")
             df = pd.read_excel('notebook/Dataset/Dataset Disssertation.xlsx')
-            logging.info(f"Dataset successfully loaded with shape: {df.shape}")
-            
-            # Step 1: Remove unsampled rows
-            logging.info("Removing unsampled rows...")
-            df = df[df['Sample_taken'] == 'Sampled']
-            logging.info(f"Dataset after removing unsampled rows: {df.shape}")
+            logging.info('Reading the dataset as dataframe')
+            logging.info(df.columns)
 
-            # Step 2: Drop unneeded features
-            logging.info("Dropping unneeded features...")
-            columns_to_drop = ['WP_ID', 'DataType', 'Date_Assessment_Original', 'SURVEY_DETAIL_ID',
-                            'COUNTRY', 'Comment', 'HCO3', 'Corrected_HCO3', 'Sample_taken', 
-                            'Date_Assessment', 'Time_Assessment']
-            df = df.drop(columns=columns_to_drop, axis=1)
-            logging.info(f"Remaining columns after dropping: {df.columns.tolist()}")
+            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
+            df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)
 
-            # Step 3: Impute missing values
-            logging.info("Imputing missing values...")
-            imputer = SimpleImputer(strategy='median')
-            columns_to_impute = ['Total Iron (mg/l)', 'Tryptophan_Probe_µgL']
-            df[columns_to_impute] = imputer.fit_transform(df[columns_to_impute])
-            logging.info(f"Missing values imputed for columns: {columns_to_impute}")
+            logging.info("Train test split initiated")
 
-            # Step 4: Outlier detection and restoration
-            logging.info("Performing outlier detection and restoration...")
-            Q1 = df.quantile(0.25)
-            Q3 = df.quantile(0.75)
-            IQR = Q3 - Q1
-
-            lower_bound = Q1 - 1.5 * IQR
-            upper_bound = Q3 + 1.5 * IQR
-
-            for column in df.columns:
-                outliers = (df[column] < lower_bound[column]) | (df[column] > upper_bound[column])
-                if outliers.any():
-                    median_value = df[column].median()
-                    df.loc[outliers, column] = median_value
-            logging.info("Outlier detection and replacement completed.")
-
-            # Save raw data
-            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
-            df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
-            logging.info("Raw data saved.")
-
-            # Step 5: Train-test split
-            logging.info("Initiating train-test split...")
-            train_set, test_set = train_test_split(df, test_size=0.2, random_state=42)
-            train_set.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
-            test_set.to_csv(self.ingestion_config.test_data_path, index=False, header=True)
-            logging.info("Train-test split completed.")
+            train_set,test_set=train_test_split(df,test_size=0.2,random_state=42)
+            train_set.to_csv(self.ingestion_config.train_data_path,index=False,header=True)
+            test_set.to_csv(self.ingestion_config.test_data_path,index=False,header=True)
 
             logging.info("Ingestion of the data is complete")
-            return (
+
+            return(
                 self.ingestion_config.train_data_path,
                 self.ingestion_config.test_data_path
-            )
-
+            ) 
+              
         except Exception as e:
-            logging.error("Exception occurred during data ingestion.")
-            raise CustomException(e, sys)
+            logging.info('Exception occured at Data Ingestion stage')
+            raise CustomException(e,sys)
         
 
 if __name__=="__main__":
     obj=DataIngestion()     
-    obj.initiate_data_ingestion() 
-    # train_data,test_data=obj.initiate_data_ingestion()
+    # obj.initiate_data_ingestion() 
+    train_data,test_data=obj.initiate_data_ingestion()
 
-    # data_transformation=DataTransformation()
-    # data_transformation.initiate_data_transformation(train_data,test_data)
+    data_transformation=DataTransformation()
+    data_transformation.initiate_data_transformation(train_data,test_data)
     # train_arr,test_arr,_=data_transformation.initiate_data_transformation(train_data,test_data)    
 
     # modeltrainer=ModelTrainer()
