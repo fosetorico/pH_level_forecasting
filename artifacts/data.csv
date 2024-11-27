@@ -1,4 +1,4 @@
-WP_ID,DataType,Date_Assessment_Original,Date_Assessment,Time_Assessment,Temp (oC),pH,SEC (µS/cm),Turbidity (<NTU),Total Iron (mg/l),Titration 1,Titration 2,Volume 50/100ml,N_VALUE,HCO3,Corrected_HCO3,Tryptophan_Probe_µgL,Sample_taken,SURVEY_DETAIL_ID,COUNTRY,Comment,Final HCO3
+WP_ID,DataType,Date_Assessment_Original,Date_Assessment,Time_Assessment,Temp,pH,SEC,Turbidity,Total_Iron,Titration_1,Titration_2,Volume,N_VALUE,HCO3,Corrected_HCO3,Tryptophan_Probe,Sample_taken,SURVEY_DETAIL_ID,COUNTRY,Comment,Final_HCO3
 MMZ37,Field,,2016-09-05,10:40:00,23.3,5.99,123.7,0.21,0.0,228.0,233.0,50.0,0.16,56.1989516030721,56.1989516030721,,Sampled,941,MAL,PVC pipes installed,56.1989516030721
 MMZ38,Field,,2016-09-05,14:10:00,24.9,6.03,115.2,0.15,0.0,246.0,242.0,50.0,0.16,59.4904303303669,59.4904303303669,,Sampled,942,MAL,PVC pipes installed,59.4904303303669
 MMZ39,Field,,2016-09-06,03:30:00,,,,,,,,,,,,,Not sampled,943,MAL,,

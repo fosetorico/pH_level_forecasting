@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>California Housing Price Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <br><br><br><br>
+    <h1><a href="https://github.com/fosetorico/pH_level_forecasting" target="_blank" style="padding: 10px; background-color:  #DCAE96; font-size: 20px;border: 5px solid #444040; border-radius: 5px; color: black; text-decoration: none; font-weight: bold;">
+        GitHub Repository Link</a></h1>
+    <h1>pH Level Forecasting of Well Water Samples from Malawi</h1>
+    <div class="form-box">
+        <form action="{{url_for('predict_datapoint')}}" method="POST">
+            <div class="form-group">
+                <label for="Temp">Temperature:</label>
+                <input type="text" id="Temp" name="Temp" placeholder="Enter Temperature Value (Float)">
+            </div>
+        
+            <div class="form-group">
+                <label for="SEC">Specific Electrical Conductivity:</label>
+                <input type="text" id="SEC" name="SEC" placeholder="Enter Specific Electrical Conductivity Value (Float)">
+            </div>
+            
+            <div class="form-group">
+                <label for="Turbidity">Turbidity:</label>
+                <input type="text" id="Turbidity" name="Turbidity" placeholder="Enter Turbidity Value (Float)">
+            </div>
+        
+            <div class="form-group">
+                <label for="Total_Iron">Total Iron:</label>
+                <input type="text" id="Total_Iron" name="Total_Iron" placeholder="Enter Total Iron Value (Float)">
+            </div>
+            
+            <div class="form-group">
+                <label for="Titration_1">Titration 1:</label>
+                <input type="text" id="Titration_1" name="Titration_1" placeholder="Enter Titration 1 Value (Float)">
+            </div>   
+            
+            <div class="form-group">
+                <label for="Titration_2">Titration 2:</label>
+                <input type="text" id="Titration_2" name="Titration_2" placeholder="Enter Titration 2 Value (Float)">
+            </div>
+
+            <div class="form-group">
+                <label for="Volume">Volume 50/100ml:</label>
+                <select id="Volume" name="Volume">
+                    <option value="50">50ml</option>>
+                    <option value="100">100ml</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="N_VALUE">N VALUE:</label>
+                <input type="text" id="N_VALUE" name="N_VALUE" placeholder="Enter N VALUE (Float)">
+            </div> 
+
+            <div class="form-group">
+                <label for="Tryptophan_Probe">Tryptophan Fluorescence (TLF):</label>
+                <input type="text" id="Tryptophan_Probe" name="Tryptophan_Probe" placeholder="Enter Tryptophan-like Fluorescence value (Float)">
+            </div> 
+
+            <div class="form-group">
+                <label for="Final_HCO3">Final bicarbonate reading:</label>
+                <input type="text" id="Final_HCO3" name="Final_HCO3" placeholder="Enter Final bicarbonate reading (Float)">
+            </div> 
+        
+            <div style="clear:both;"></div>&nbsp;
+            <input type="submit" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+        </form>
+
+        <div>      
+            <h2>
+            Predicted pH Level Value : {{ results }}
+            </h2>
+        </div>        
+    </div>
+
+  </body>
+</html>
