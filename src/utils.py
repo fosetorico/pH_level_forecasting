@@ -14,6 +14,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.exception import CustomException
 
+
 class OutlierHandler(BaseEstimator, TransformerMixin):
     """
     Custom transformer to handle outliers by replacing them with the median.
