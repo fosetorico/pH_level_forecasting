@@ -91,7 +91,7 @@ jobs:
       #======= Uncomment after the first run =========   
       - name: Stop and remove container if running
         run: |
-         docker ps -q --filter "name=phlevel" | grep -q . && docker stop phlevel && docker rm -fv phlevel
+         docker ps -q --filter "name=phlevel" | grep -q . && docker stop phlevel && docker rm -fv phlevel || true
        
       - name: Run Docker Image to serve users
         run: |
