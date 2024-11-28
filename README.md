@@ -10,7 +10,7 @@ This project focuses on an End-to-End Project for Forecasting pH levels of water
     - Data Ingestion
     - Data Transformation
     - Model Trainer
-    - Prediction Pipelining using Flask
+    - Prediction Pipelining
 
 ## Running Instruction
 
